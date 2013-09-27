@@ -30,6 +30,19 @@ class Bus():
 	def echo(self,data):
 		self._socket.send(msgpack.packb([common.DYNAMIXEL_RQ_ZMQ_ECHO]+data))
 		return msgpack.unpackb(self._socket.recv())
+
+	def write_data(self,dynamixel_id,register,data):
+		self._socket.send(msgpack.packb([common.DYNAMIXEL_RQ_WRITE_DATA,dynamixel_id,register,len(data)]+data))
+		return msgpack.unpackb(self._socket.recv())
+
+	def reg_write(self,dynamixel_id,register,data):
+		self._socket.send(msgpack.packb([common.DYNAMIXEL_RQ_REG_WRITE,dynamixel_id,register,len(data)]+data))
+		return msgpack.unpackb(self._socket.recv())
+
+	def reg_action(self,dynamixel_id):
+		self._socket.send(msgpack.packb([common.DYNAMIXEL_RQ_REG_ACTION,dynamixel_id]))
+		return msgpack.unpackb(self._socket.recv())
+	
 	
 	def sync_write(self,reg_start,id_count,p_count,data):
 		self._socket.send(msgpack.packb(

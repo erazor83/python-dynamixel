@@ -19,12 +19,10 @@ positions=[400,500,600,500]
 
 while True:
 	for pos in positions:
-		rc=myBus.sync_write_words(
+		rc=myBus.write_data(
+			1,
 			common.DYNAMIXEL_R_GOAL_POSITION_L,
-			2,
-			2,
-			[1,pos,90]+
-			[2,pos,90]
+			[pos&0xff,(pos>>8)&0xff]
 		)
 		print(rc)
 		time.sleep(2)
