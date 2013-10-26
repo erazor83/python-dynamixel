@@ -62,6 +62,7 @@ class Bus():
 		))
 		return msgpack.unpackb(self._socket.recv())
 
+class PyPose_Commands():
 	def pypose_load_poses(self,poses):
 		for pose_id in poses:
 			#set pose-size
@@ -109,4 +110,15 @@ class Bus():
 		ret=msgpack.unpackb(self._socket.recv())
 		print(ret)
 		
-			
+class Trossen_Commands():
+	def cmd(self,right_V,right_H,left_V,left_H,buttons):
+		self._socket.send(msgpack.packb([
+			common.TROSSEN_COMMANDER,
+			right_V,
+			right_H,
+			left_V,
+			left_H,
+			buttons
+		]))
+		return msgpack.unpackb(self._socket.recv())
+	

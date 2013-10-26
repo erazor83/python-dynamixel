@@ -11,7 +11,10 @@ sys.path=[os.path.dirname(os.path.realpath(__file__))+'/../']+sys.path
 import python_dynamixel.zmq_bus as zmq_bus
 import python_dynamixel.common as common
 
-myBus=zmq_bus.Bus()
+class myBusClass(zmq_bus.Bus,zmq_bus.PyPose_Commands):
+	pass
+
+myBus=myBusClass()
 
 myBus.open(URI)
 
